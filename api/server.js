@@ -4,7 +4,7 @@ const cors = require("cors");
 const session = require("express-session");
 const knexSessionStore = require("connect-session-knex")(session);
 
-const authenticate = require("../auth/restricted-middleware.js");
+// const authenticate = require("../auth/restricted-middleware.js");
 const authRouter = require("../auth/auth-router.js");
 const usersRouter = require("../users/users-router.js");
 
@@ -35,7 +35,7 @@ server.use(cors());
 server.use(session(sessionConfig));
 
 server.use("/api/auth", authRouter);
-server.use("/api/users", authenticate, usersRouter);
+server.use("/api/users", usersRouter);
 
 server.get("/", (req, res) => {
   res.status(200).json({ api: "up" });
