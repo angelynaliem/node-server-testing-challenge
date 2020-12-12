@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { decode } = require("punycode");
 const secret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
