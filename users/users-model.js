@@ -15,7 +15,7 @@ async function add(user) {
 
 async function find() {
   try {
-    return await db("users").select("id", "username");
+    return await db("users");
   } catch (err) {
     throw err;
   }
