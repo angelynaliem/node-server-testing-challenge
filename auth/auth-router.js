@@ -50,6 +50,20 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
+router.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.send("Error logging out");
+      } else {
+        res.send("Good bye!");
+      }
+    });
+  } else {
+    res.end();
+  }
+});
+
 function generateToken(user) {
   const payload = {
     id: user.id,
