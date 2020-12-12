@@ -1,6 +1,6 @@
 const request = require("supertest");
 const server = require("./server.js");
-const db = require("../data/connection.js");
+// const db = require("../data/connection.js");
 
 describe("server.js", () => {
   test("should be the testing environment", () => {
