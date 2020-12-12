@@ -18,3 +18,5 @@ router.get("/", restricted, async (req, res, next) => {
 //     res.status;
 //   }
 // });
+
+module.exports = router;
