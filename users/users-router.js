@@ -20,7 +20,7 @@ router.delete("/:id", restricted, async (req, res, next) => {
   try {
     const count = await Users.remove(id);
     if (count) {
-      res.json({ message: `Deleted ${count} account/s` });
+      res.status(200).json({ message: `Deleted ${count} account/s` });
     } else {
       res.status(404).json({ message: "Invalid id" });
     }
