@@ -8,14 +8,19 @@ module.exports = {
   remove,
 };
 
-async function add(userData) {
-  try {
-    const ids = await db("users").insert(userData);
-    const newUser = await findById(ids[0]);
-    return newUser;
-  } catch (err) {
-    throw err;
-  }
+// async function add(userData) {
+//   try {
+//     const ids = await db("users").insert(userData);
+//     const newUser = await findById(ids[0]);
+//     return newUser;
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
+async function add(user) {
+  const [id] = await db("users").insert(user, "id");
+  return findById(id);
 }
 
 async function find() {

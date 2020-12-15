@@ -19,8 +19,8 @@ router.post("/register", async (req, res, next) => {
       credentials.password = hash;
 
       const user = await Users.add(credentials);
-      // const token = generateToken(user);
-      res.status(201).json({ data: user });
+      const token = generateToken(user);
+      res.status(201).json({ data: user, token });
     } else {
       next({ apiCode: 400, apiMessage: "Username or password missing" });
     }
