@@ -2,6 +2,9 @@
   "name": "node-server-testing",
   "version": "1.0.0",
   "description": "Node Server Testing Challenge",
+  "engines": {
+    "node": "15.x"
+  },
   "scripts": {
     "test": "cross-env DB_ENV=testing jest --watch",
     "server": "nodemon index.js",
