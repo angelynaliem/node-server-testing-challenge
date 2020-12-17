@@ -22,7 +22,10 @@ router.post("/register", async (req, res, next) => {
       const token = generateToken(user);
       res.status(201).json({ data: user, token });
     } else {
-      next({ apiCode: 400, apiMessage: "Username or password missing" });
+      next({
+        apiCode: 400,
+        apiMessage: "Username or password or email is missing",
+      });
     }
   } catch (err) {
     console.log(err);
@@ -40,27 +43,13 @@ router.post("/login", async (req, res, next) => {
       const [user] = await Users.findBy({ username: username });
       if (user && bcryptjs.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ message: "Welcome", token: token });
+        res.status(200).json({ message: `Welcome ${username}`, token: token });
       } else {
         next({ apiCode: 401, apiMessage: "Invalid credentials" });
       }
     }
   } catch (error) {
     next({ apiCode: 500, apiMessage: "Database error logging in", ...error });
-  }
-});
-
-router.get("/logout", (req, res) => {
-  if (req.session) {
-    req.session.destroy((err) => {
-      if (err) {
-        res.send("Error logging out");
-      } else {
-        res.send("Good bye!");
-      }
-    });
-  } else {
-    res.end();
   }
 });
 
