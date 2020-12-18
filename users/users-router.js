@@ -29,4 +29,23 @@ router.delete("/:id", restricted, async (req, res, next) => {
   }
 });
 
+router.get("/:username", restricted, async (req, res, next) => {
+  const { username } = req.params;
+
+  try {
+    const userListing = await Users.getUserListing(username);
+    if (userListing) {
+      res.status(200).json(userListing);
+    } else {
+      res.status(404).json({ message: "Invalid id" });
+    }
+  } catch (err) {
+    next({
+      apiCode: 500,
+      apiMessage: "Db error retrieving the user's listing",
+      ...err,
+    });
+  }
+});
+
 module.exports = router;

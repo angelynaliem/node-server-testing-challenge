@@ -6,6 +6,7 @@ module.exports = {
   findBy,
   findById,
   remove,
+  getUserListing,
 };
 
 // async function add(userData) {
@@ -25,7 +26,20 @@ async function add(user) {
 
 async function find() {
   try {
-    return await db("users");
+    const marketplace = await db("users_products")
+      .join("users", "users_products.userId", "users.id")
+      .join("products", "users_products.productId", "products.id")
+      .join("location", "products.locationId", "location.id")
+      .join("category", "products.categoryId", "category.id")
+      .select(
+        "users.username",
+        "products.name as product_name",
+        "products.description",
+        "products.price",
+        "location.name as location",
+        "category.name as category"
+      );
+    return marketplace;
   } catch (err) {
     throw err;
   }
@@ -52,6 +66,29 @@ async function findById(id) {
 async function remove(id) {
   try {
     return await db("users").del().where({ id });
+  } catch (err) {
+    throw err;
+  }
+}
+
+async function getUserListing(username) {
+  try {
+    const userListing = await db("users")
+      .join("users_products", "users.id", "users_products.userId")
+      .join("products", "users_products.productId", "products.id")
+      .join("location", "products.locationId", "location.id")
+      .join("category", "products.categoryId", "category.id")
+      .where({ username })
+      .first()
+      .select(
+        "products.name as product_name",
+        "products.description",
+        "products.price",
+        "location.name as location",
+        "category.name as category"
+      )
+      .orderBy("products.id");
+    return userListing;
   } catch (err) {
     throw err;
   }

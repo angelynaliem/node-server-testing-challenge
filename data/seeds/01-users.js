@@ -2,24 +2,24 @@ exports.seed = function (knex) {
   // Deletes ALL existing entries
   return knex("users").insert([
     {
-      username: "Unicorn",
+      username: "santaclaus",
       password: "$2y$12$7.jX3544nUwBFnmqvEWLGOFdUxZQNyFDVklsuooxEoLb9ysLDMyuq",
-      email: "angelyn@gmail.com",
+      email: "santaclaus@gmail.com",
     },
     {
-      username: "Darren",
+      username: "elf",
       password: "$2y$12$7.jX3544nUwBFnmqvEWLGOFdUxZQNyFDVklsuooxEoLb9ysLDMyuq",
-      email: "darren@gmail.com",
+      email: "elf@gmail.com",
     },
     {
-      username: "Asher",
+      username: "rudolph",
       password: "$2y$12$7.jX3544nUwBFnmqvEWLGOFdUxZQNyFDVklsuooxEoLb9ysLDMyuq",
-      email: "asher@gmail.com",
+      email: "rudolph@gmail.com",
     },
     {
-      username: "Darrell",
+      username: "cookie",
       password: "$2y$12$7.jX3544nUwBFnmqvEWLGOFdUxZQNyFDVklsuooxEoLb9ysLDMyuq",
-      email: "darrell@gmail.com",
+      email: "cookie@gmail.com",
     },
   ]);
 };
