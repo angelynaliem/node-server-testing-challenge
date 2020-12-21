@@ -48,4 +48,84 @@ router.get("/:username", restricted, async (req, res, next) => {
   }
 });
 
+router.get("/:username/:id", restricted, async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const productList = await Users.findProductById(id);
+    if (productList) {
+      res.status(200).json(productList);
+    } else {
+      res.status(404).json({ message: "Invalid product id" });
+    }
+  } catch (err) {
+    next({
+      apiCode: 500,
+      apiMessage: "Db error finding the product id",
+      ...err,
+    });
+  }
+});
+
+router.post("/:username", restricted, async (req, res, next) => {
+  const product = req.body;
+  const { username } = req.params;
+
+  try {
+    const newProduct = await Users.addProduct(product);
+    if (newProduct) {
+      res.status(200).json(newProduct);
+    } else {
+      res.status(404).json({ message: "Failed to post a new product" });
+    }
+  } catch (err) {
+    next({
+      apiCode: 500,
+      apiMessage: "Db error posting the new product",
+      ...err,
+    });
+  }
+});
+
+router.put("/:username/:id", restricted, async (req, res, next) => {
+  const changes = req.body;
+  const { id } = req.params;
+
+  try {
+    const updatedProduct = await Users.updateProduct(changes, id);
+    if (updatedProduct) {
+      res.status(200).json(updatedProduct);
+    } else {
+      res
+        .status(404)
+        .json({ message: "Could not update the specified product" });
+    }
+  } catch (err) {
+    next({
+      apiCode: 500,
+      apiMessage: "Db error updating the specified product",
+      ...err,
+    });
+  }
+});
+
+router.delete("/:username/:id", restricted, async (req, res, next) => {
+  const { id } = req.params;
+
+  try {
+    const removedProduct = await Users.removeProduct(id);
+    if (removedProduct) {
+      res.status(200).json(removedProduct);
+    } else {
+      res.status(404).json({ message: "Failed to delete the product" });
+    }
+  } catch (err) {
+    next({
+      apiCode: 500,
+      apiMessage: "Db error deleting the product",
+      ...err,
+    });
+  }
+});
+
 module.exports = router;
