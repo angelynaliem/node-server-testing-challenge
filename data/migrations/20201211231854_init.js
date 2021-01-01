@@ -43,9 +43,7 @@ exports.up = function (knex) {
         .references("category.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-    })
 
-    .createTable("users_products", (tbl) => {
       tbl
         .integer("userId")
         .unsigned()
@@ -53,22 +51,11 @@ exports.up = function (knex) {
         .references("users.id")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
-
-      tbl
-        .integer("productId")
-        .unsigned()
-        .notNullable()
-        .references("products.id")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-
-      tbl.primary(["userId", "productId"]);
     });
 };
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("users_products")
     .dropTableIfExists("products")
     .dropTableIfExists("category")
     .dropTableIfExists("location")

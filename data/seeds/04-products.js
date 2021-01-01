@@ -7,6 +7,7 @@ exports.seed = function (knex) {
       price: 299,
       locationId: 1,
       categoryId: 1,
+      userId: 1,
     },
     {
       name: "black beans",
@@ -14,6 +15,7 @@ exports.seed = function (knex) {
       price: 40,
       locationId: 2,
       categoryId: 2,
+      userId: 2,
     },
     {
       name: "barley",
@@ -22,6 +24,7 @@ exports.seed = function (knex) {
       price: 25,
       locationId: 3,
       categoryId: 4,
+      userId: 3,
     },
     {
       name: "kales",
@@ -29,6 +32,7 @@ exports.seed = function (knex) {
       price: 50,
       locationId: 1,
       categoryId: 11,
+      userId: 1,
     },
   ]);
 };
