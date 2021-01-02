@@ -49,27 +49,63 @@ productsRouter.get("/:id", restricted, async (req, res, next) => {
 
 // Updates an existing product
 
-productsRouter.put("/:id", restricted, async (req, res, next) => {
+productsRouter.put("/:id", restricted, (req, res, next) => {
   const changes = req.body;
   const { id } = req.params;
 
-  try {
-    const updatedProduct = await Products.updateProduct(changes, id);
-    if (updatedProduct) {
-      res.status(200).json(updatedProduct);
-    } else {
-      res
-        .status(404)
-        .json({ message: "Could not update the specified product" });
-    }
-  } catch (err) {
-    next({
-      apiCode: 500,
-      apiMessage: "Db error updating the specified product",
-      ...err,
+  Products.findProductById(id)
+    .then((product) => {
+      if (product) {
+        Products.updateProduct(changes, id).then((updatedProduct) => {
+          res.status(200).json(updatedProduct);
+        });
+      } else {
+        res.status(404).json({ message: "Could not update product" });
+      }
+    })
+    .catch((err) => {
+      next({
+        apiCode: 500,
+        apiMessage: "Db error updating product",
+        ...err,
+      });
     });
-  }
 });
+
+// productsRouter.put("/:id", restricted, async (req, res, next) => {
+//   const changes = req.body;
+//   const { id } = req.params;
+
+//   try {
+//     const productFound = await Products.findProductById(id);
+//     if (productFound) {
+//       try {
+//         const updatedProduct = await Products.updateProduct(changes, id);
+//         if (updatedProduct) {
+//           res.status(200).json(updatedProduct);
+//         } else {
+//           res
+//             .status(404)
+//             .json({ message: "Could not update the specified product" });
+//         }
+//       } catch (err) {
+//         next({
+//           apiCode: 500,
+//           apiMessage: "Db error updating the specified product",
+//           ...err,
+//         });
+//       }
+//     } else {
+//       res.status(404).json({ message: "Could not find specified product id" });
+//     }
+//   } catch (err) {
+//     next({
+//       apiCode: 500,
+//       apiMessage: "Db error finding product id",
+//       ...err,
+//     });
+//   }
+// });
 
 // Removes an existing product
 

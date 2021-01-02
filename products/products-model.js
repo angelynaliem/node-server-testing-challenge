@@ -25,13 +25,22 @@ async function findProductById(id) {
   }
 }
 
-async function updateProduct(changes, id) {
-  try {
-    const [productId] = await db("products").where({ id }).update(changes);
-    return findProductById(productId);
-  } catch (err) {
-    throw err;
-  }
+// async function updateProduct(changes, id) {
+//   try {
+//     const [id] = await db("products").where({ id }).update(changes);
+//     return findProductById(id);
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
+function updateProduct(changes, id) {
+  return db("products")
+    .where({ id })
+    .update(changes)
+    .then((count) => {
+      return findProductById(id);
+    });
 }
 
 async function removeProduct(id) {
