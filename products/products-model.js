@@ -7,13 +7,20 @@ module.exports = {
   removeProduct,
 };
 
-async function addProduct(product) {
-  try {
-    const [id] = await db("product").insert(product);
-    return findProductById(id);
-  } catch (err) {
-    throw err;
-  }
+// async function addProduct(product) {
+//   try {
+//     const [id] = await db("product").insert(product);
+//     return findProductById(id);
+//   } catch (err) {
+//     throw err;
+//   }
+// }
+
+function addProduct(product) {
+  return db("product").insert(product)
+  .then(ids => {
+    return findProductById(ids[0]);
+  })
 }
 
 async function findProductById(id) {

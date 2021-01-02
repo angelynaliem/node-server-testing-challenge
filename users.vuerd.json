@@ -167,7 +167,7 @@
         "id": "013c1daa-89c8-c147-5ffa-eca3648c7897"
       },
       {
-        "name": "products",
+        "name": "product",
         "comment": "",
         "columns": [
           {
@@ -336,7 +336,7 @@
           "active": true,
           "left": 665,
           "top": 97,
-          "zIndex": 274,
+          "zIndex": 276,
           "widthName": 60,
           "widthComment": 60
         },
