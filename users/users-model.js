@@ -16,16 +16,16 @@ async function add(user) {
 
 async function find() {
   try {
-    const marketplace = await db("products")
-      .join("users", "products.userId", "users.id")
-      .join("location", "products.locationId", "location.id")
-      .join("category", "products.categoryId", "category.id")
+    const marketplace = await db("product")
+      .join("users", "product.userId", "users.id")
+      .join("location", "product.locationId", "location.id")
+      .join("category", "product.categoryId", "category.id")
       .select(
         "users.username",
-        "products.userId as userId",
-        "products.name as productName",
-        "products.description as productDescription",
-        "products.price",
+        "product.userId as userId",
+        "product.name as productName",
+        "product.description as productDescription",
+        "product.price",
         "location.name as location",
         "category.name as category"
       );
@@ -64,21 +64,21 @@ async function removeUser(id) {
 async function getUserListing(userId) {
   try {
     const userListing = await db("users")
-      .join("products", "users.id", "products.userId")
-      .join("location", "products.locationId", "location.id")
-      .join("category", "products.categoryId", "category.id")
+      .join("product", "users.id", "product.userId")
+      .join("location", "product.locationId", "location.id")
+      .join("category", "product.categoryId", "category.id")
       .where({ userId })
       // .first()
       .select(
         "users.username as username",
-        "products.userId as userId",
-        "products.name as productName",
-        "products.description as productDescription",
-        "products.price",
+        "product.userId as userId",
+        "product.name as productName",
+        "product.description as productDescription",
+        "product.price",
         "location.name as location",
         "category.name as category"
       )
-      .orderBy("products.id");
+      .orderBy("product.id");
     return userListing;
   } catch (err) {
     throw err;

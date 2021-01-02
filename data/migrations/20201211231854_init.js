@@ -21,7 +21,7 @@ exports.up = function (knex) {
       tbl.string("name", 128).notNullable().unique();
     })
 
-    .createTable("products", (tbl) => {
+    .createTable("product", (tbl) => {
       tbl.increments();
 
       tbl.string("name", 128).notNullable().unique();
@@ -56,7 +56,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex) {
   return knex.schema
-    .dropTableIfExists("products")
+    .dropTableIfExists("product")
     .dropTableIfExists("category")
     .dropTableIfExists("location")
     .dropTableIfExists("users");

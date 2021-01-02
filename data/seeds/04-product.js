@@ -1,6 +1,6 @@
 exports.seed = function (knex) {
   // Deletes ALL existing entries
-  return knex("products").insert([
+  return knex("product").insert([
     {
       name: "eggs",
       description: "pasture-raised eggs by small family farm",

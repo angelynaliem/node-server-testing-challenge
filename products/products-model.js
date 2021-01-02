@@ -9,7 +9,7 @@ module.exports = {
 
 async function addProduct(product) {
   try {
-    const [id] = await db("products").insert(product);
+    const [id] = await db("product").insert(product);
     return findProductById(id);
   } catch (err) {
     throw err;
@@ -18,7 +18,7 @@ async function addProduct(product) {
 
 async function findProductById(id) {
   try {
-    const product = await db("products").where({ id }).first();
+    const product = await db("product").where({ id }).first();
     return product;
   } catch (err) {
     throw err;
@@ -35,7 +35,7 @@ async function findProductById(id) {
 // }
 
 function updateProduct(changes, id) {
-  return db("products")
+  return db("product")
     .where({ id })
     .update(changes)
     .then((count) => {
@@ -45,7 +45,7 @@ function updateProduct(changes, id) {
 
 async function removeProduct(id) {
   try {
-    const removedProduct = await db("products").where({ id }).del();
+    const removedProduct = await db("product").where({ id }).del();
     return removedProduct;
   } catch (err) {
     throw err;
