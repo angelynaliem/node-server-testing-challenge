@@ -19,10 +19,13 @@ router.post("/register", async (req, res, next) => {
       credentials.password = hash;
 
       const user = await Users.add(credentials);
-      const token = generateToken(user);
-      res.status(201).json({ data: user, token });
+      // const token = generateToken(user);
+      res.status(201).json({ data: user });
     } else {
-      next({ apiCode: 400, apiMessage: "Username or password missing" });
+      next({
+        apiCode: 400,
+        apiMessage: "Username or password or email is missing",
+      });
     }
   } catch (err) {
     console.log(err);
@@ -40,7 +43,13 @@ router.post("/login", async (req, res, next) => {
       const [user] = await Users.findBy({ username: username });
       if (user && bcryptjs.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ message: "Welcome", token: token });
+        res
+          .status(200)
+          .json({
+            message: `Welcome ${username}`,
+            token: token,
+            userId: user.id,
+          });
       } else {
         next({ apiCode: 401, apiMessage: "Invalid credentials" });
       }
